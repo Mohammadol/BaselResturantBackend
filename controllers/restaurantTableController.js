@@ -16,6 +16,17 @@ const getRestaurantTableById = async (req, res) => {
     }
 };
 
+const getRestaurants = async (req, res) => {
+    try {
+        const restaurantTable = await RestaurantTable.findAll();
+        res.json(restaurantTable);
+
+    } catch {
+        res.status(404).json({ error: 'Could not fitvh the data' });
+
+    }
+
+}
 // CREATE Restaurant Table
 const createRestaurantTable = async (req, res) => {
     try {
@@ -25,9 +36,9 @@ const createRestaurantTable = async (req, res) => {
             return res.status(400).json({ error: 'Missing required fields' });
         }
         const newTable = await RestaurantTable.create({ number, color, chairs, used, carier, restaurant });
-        
+
         res.status(201).json(newTable);
-        
+
     } catch (error) {
         res.status(500).json({ error: 'Failed to create restaurant table' });
     }
@@ -53,5 +64,6 @@ const deleteRestaurantTable = async (req, res) => {
 module.exports = {
     getRestaurantTableById,
     createRestaurantTable,
-    deleteRestaurantTable
+    deleteRestaurantTable,
+    getRestaurants
 };
