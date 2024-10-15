@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult, param } = require('express-validator');
-const { getRestaurantTableById, createRestaurantTable, deleteRestaurantTable, getRestaurants } = require('../controllers/restaurantTableController'); // Import functions
+const { getRestaurantTableById, createRestaurantTable, deleteRestaurantTable, getRestaurants, updateRestaurantTable } = require('../controllers/restaurantTableController'); // Import functions
 
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router.get('/:id', [
 ], getRestaurantTableById);
 
 router.get('/', getRestaurants);
+router.put('/:id', [
+  param('id').isInt().notEmpty(), // Validate ID parameter
+], updateRestaurantTable);
 
 router.delete('/:id', [
   param('id').isInt().notEmpty(), // Validate ID parameter

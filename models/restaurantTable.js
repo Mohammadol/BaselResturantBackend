@@ -29,10 +29,19 @@ const RestaurantTable = sequelize.define('restaurantTable', {
     },
     restaurant: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'restaurants', // Replace 'restaurants' with the actual name of your restaurants table
+            key: 'id' // Assuming the primary key of the restaurants table is 'id'
+        },
+        onDelete: 'CASCADE' // This will delete associated restaurant tables when the corresponding restaurant is deleted
     }
 });
- RestaurantTable.sync(),
+sequelize.sync().then(() => {
+    console.log('Restaurant table created or updated!');
+}).catch((error) => {
+    console.error('Error creating restaurant table:', error);
+});
 
 
 module.exports = RestaurantTable;

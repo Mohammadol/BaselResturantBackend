@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
-const restaurantTablesRoutes = require('./routes/restaurantTables');
+const restaurantTablesRoutes = require('./routes/restaurantTablesRouter');
+const restaurantRoutes = require('./routes/restaurantRouter');
 const app = express();
 const bodyParser = require('body-parser');
 const port = 3000; // Adjust the port number as needed
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/restaurantTables', restaurantTablesRoutes);
+app.use('/restaurants', restaurantRoutes);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
