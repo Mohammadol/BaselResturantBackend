@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../config/database'); // Assuming you have a database configuration file
+const sequelize = require('../config/database');
 
 const Department = sequelize.define('department', {
     id: {
@@ -17,14 +17,8 @@ const Department = sequelize.define('department', {
     },
     printer: {
         type: Sequelize.STRING,
-        allowNull: true // Assuming printer is optional
+        allowNull: true
     }
-});
-
-sequelize.sync().then(() => {
-    console.log('Departments table created or updated!');
-}).catch((error) => {
-    console.error('Error creating departments table:', error);
 });
 
 module.exports = Department;

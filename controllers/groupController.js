@@ -30,15 +30,17 @@ const getGroupById = async (req, res) => {
 };
 
 const createGroup = async (req, res) => {
+    const { name_ar, name_en, appearanceNumber, isDefault, restaurantIds } = req.body;
+
     try {
-        const { name_ar, name_en, appearanceNumber, isDefault, restaurantId } = req.body;
+        const newGroup = await Group.create({
+            name_ar,
+            name_en,
+            appearanceNumber,
+            isDefault
+        });
 
-        // Validate input data
-        if (!name_ar || !name_en || appearanceNumber === undefined || restaurantId === undefined) {
-            return res.status(400).json({ error: 'Missing required fields' });
-        }
-
-        const newGroup = await Group.create({ name_ar, name_en, appearanceNumber, isDefault, restaurantId });
+        await newGroup.setRestaurants(restaurantIds);
 
         res.status(201).json(newGroup);
     } catch (error) {
@@ -49,7 +51,7 @@ const createGroup = async (req, res) => {
 const updateGroup = async (req, res) => {
     try {
         const id = req.params.id;
-        const { name_ar, name_en, appearanceNumber, isDefault, restaurantId } = req.body;
+        const { name_ar, name_en, appearanceNumber, isDefault, restaurantIds } = req.body;
 
         const group = await Group.findByPk(id);
 
@@ -57,20 +59,22 @@ const updateGroup = async (req, res) => {
             return res.status(404).json({ error: 'Group not found' });
         }
 
-        group.name_ar = name_ar || group.name_ar;
-        group.name_en = name_en || group.name_en;
-        group.appearanceNumber = appearanceNumber || group.appearanceNumber;
-        group.isDefault = isDefault || group.isDefault;
-        group.restaurantId = restaurantId || group.restaurantId;
+        await group.update({
+            name_ar,
+            name_en,
+            appearanceNumber,
+            isDefault
+        });
 
-        await group.save();
+        if (restaurantIds) {
+            await group.setRestaurants(restaurantIds);
+        }
 
         res.json({ message: 'Group updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to update group' });
     }
 };
-
 const deleteGroup = async (req, res) => {
     try {
         const id = req.params.id;
@@ -79,6 +83,8 @@ const deleteGroup = async (req, res) => {
         if (!group) {
             return res.status(404).json({ error: 'Group not found' });
         }
+
+        await group.setRestaurants([]);
 
         await group.destroy();
         res.json({ message: 'Group deleted successfully' });

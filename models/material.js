@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
-const Group =require('./group');
-const Department=require('./department');
+
 const Material = sequelize.define('material', {
     id: {
         type: Sequelize.INTEGER,
@@ -40,20 +39,6 @@ const Material = sequelize.define('material', {
         type: Sequelize.STRING,
         allowNull: false
     }
-});
-
-// Define the many-to-many relationship between materials and groups
-Material.belongsToMany(Group, { through: 'material_groups' });
-Group.belongsToMany(Material, { through: 'material_groups' });
-
-// Define the one-to-many relationship between materials and departments
-Material.belongsTo(Department, { foreignKey: 'departmentId' });
-Department.hasMany(Material, { foreignKey: 'departmentId' });
-
-sequelize.sync().then(() => {
-    console.log('Materials table created or updated!');
-}).catch((error) => {
-    console.error('Error creating materials table:', error);
 });
 
 module.exports = Material;

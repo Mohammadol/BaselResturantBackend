@@ -1,6 +1,7 @@
+// addon.js
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
-const Group =require('./group');
+
 const Addon = sequelize.define('addon', {
     id: {
         type: Sequelize.INTEGER,
@@ -23,16 +24,6 @@ const Addon = sequelize.define('addon', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-});
-
-// Define the many-to-many relationship between addons and groups
-Addon.belongsToMany(Group, { through: 'addon_groups' });
-Group.belongsToMany(Addon, { through: 'addon_groups' });
-
-sequelize.sync().then(() => {
-    console.log('Addons table created or updated!');
-}).catch((error) => {
-    console.error('Error creating addons table:', error);
 });
 
 module.exports = Addon;
