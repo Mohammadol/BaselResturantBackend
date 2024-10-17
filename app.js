@@ -6,6 +6,7 @@ const restaurantRoutes = require('./routes/restaurantRouter');
 const addonRouter = require('./routes/addonRouter');
 const groupRouter = require('./routes/groupRouter');
 const materialRouter = require('./routes/materialRouter');
+const departmentRouter = require('./routes/departmentRouter');
 const associations= require('./associations');
 const app = express();
 const port = 3000; // Adjust the port number as needed
@@ -20,6 +21,7 @@ app.use('/restaurants', restaurantRoutes);
 app.use('/addons', addonRouter);
 app.use('/groups', groupRouter);
 app.use('/material', materialRouter);
+app.use('/department', departmentRouter);
 
 // Sync Sequelize models and start the server
 sequelize.sync()
