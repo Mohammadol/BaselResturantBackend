@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('baseldatabase', 'root', 'Mohammad_161281', {
+const sequelize = new Sequelize('baseldatabase', 'root', '', {
     host: '127.0.0.1',
     dialect: 'mysql' // or 'postgres', 'sqlite', etc.
 });
