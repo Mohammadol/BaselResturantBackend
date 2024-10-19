@@ -24,13 +24,13 @@ app.use('/material', materialRouter);
 app.use('/department', departmentRouter);
 
 // Sync Sequelize models and start the server
-sequelize.sync()
-    .then(() => {
-        console.log('Database & tables created or updated!');
-        app.listen(port, () => {
-            console.log(`Server listening on port ${port}`);
-        });
-    })
-    .catch((error) => {
-        console.error('Error syncing database:', error);
+sequelize.sync({ alter: true }) // 'alter: true' ensures the schema gets updated without dropping tables
+  .then(() => {
+    console.log('Database synced successfully.');
+    app.listen(3000, () => {
+      console.log('Server is running on port 3000');
     });
+  })
+  .catch(error => {
+    console.error('Failed to sync database:', error);
+  });

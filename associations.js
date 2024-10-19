@@ -1,4 +1,3 @@
-// associations.js
 const Addon = require('./models/addon');
 const Group = require('./models/group');
 const Material = require('./models/material');
@@ -6,25 +5,26 @@ const Department = require('./models/department');
 const Restaurant = require('./models/restaurant');
 const RestaurantTable = require('./models/restaurantTable');
 
-// Addon can have many Groups and Groups can have many Addons
-Addon.belongsTo(Group, { foreignKey: 'groupId', onDelete: 'CASCADE' });
-Group.belongsToMany(Addon, { through: 'addon_groups' });
-
-// Material can have many Groups and Groups can have many Materials
+// One-to-Many: Group has many Addons, and an Addon belongs to one Group
+Addon.belongsTo(Group, { foreignKey: 'groupId' });
+Group.hasMany(Addon, { foreignKey: 'groupId' });
+// Many-to-Many: Material and Group
 Material.belongsToMany(Group, { through: 'material_groups' });
 Group.belongsToMany(Material, { through: 'material_groups' });
 
-// Restaurant can have many Groups and Groups can have many Restaurants
+// Many-to-Many: Restaurant and Group
 Group.belongsToMany(Restaurant, { through: 'restaurant_groups' });
 Restaurant.belongsToMany(Group, { through: 'restaurant_groups' });
 
-// Department has many Materials (One-to-Many relationship)
+// One-to-Many: Department has many Materials
 Material.belongsTo(Department, { foreignKey: 'departmentId' });
 Department.hasMany(Material, { foreignKey: 'departmentId' });
 
-// Restaurant has many RestaurantTables (One-to-Many relationship)
+// One-to-Many: Restaurant has many RestaurantTables
 Restaurant.hasMany(RestaurantTable, { foreignKey: 'restaurantId', onDelete: 'CASCADE' });
 RestaurantTable.belongsTo(Restaurant, { foreignKey: 'restaurantId', onDelete: 'CASCADE' });
+
+
 
 module.exports = {
     Addon,
