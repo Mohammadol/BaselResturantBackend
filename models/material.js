@@ -16,15 +16,15 @@ const Material = sequelize.define('material', {
         allowNull: false
     },
     price1: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     price2: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     price3: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     appearanceNumber: {

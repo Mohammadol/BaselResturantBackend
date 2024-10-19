@@ -18,7 +18,7 @@ const Addon = sequelize.define('addon', {
         allowNull: false
     },
     price: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     appearanceNumber: {
