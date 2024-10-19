@@ -1,16 +1,27 @@
 const Group = require('../models/group');
 const Restaurant = require('../models/restaurant');
 
+
 const getAllGroups = async (req, res) => {
     try {
-        const groups = await Group.findAll({
-            include: 'restaurants' // Include associated restaurants
-        });
+        const groups = await sequelize.query(
+            `SELECT g.id, g.name_ar, g.name_en, r.name
+             FROM groups AS g
+             LEFT JOIN restaurant_groups AS rg ON g.id = rg.groupId
+             LEFT JOIN restaurants AS r ON r.id = rg.restaurantId
+             WHERE g.id = :groupId`,
+            {
+                replacements: { groupId: req.params.id },
+                type: QueryTypes.SELECT
+            }
+        );
         res.json(groups);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve groups' });
     }
 };
+
+
 
 const getGroupById = async (req, res) => {
     try {

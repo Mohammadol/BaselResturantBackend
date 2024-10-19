@@ -7,7 +7,7 @@ const Restaurant = require('./models/restaurant');
 const RestaurantTable = require('./models/restaurantTable');
 
 // Addon can have many Groups and Groups can have many Addons
-Addon.belongsToMany(Group, { through: 'addon_groups' });
+Addon.belongsTo(Group, { foreignKey: 'groupId', onDelete: 'CASCADE' });
 Group.belongsToMany(Addon, { through: 'addon_groups' });
 
 // Material can have many Groups and Groups can have many Materials
