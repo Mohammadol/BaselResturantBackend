@@ -4,17 +4,15 @@ const Restaurant = require('../models/restaurant');
 
 const getAllGroups = async (req, res) => {
     try {
-        const groups = await sequelize.query(
-            `SELECT g.id, g.name_ar, g.name_en, r.name
-             FROM groups AS g
-             LEFT JOIN restaurant_groups AS rg ON g.id = rg.groupId
-             LEFT JOIN restaurants AS r ON r.id = rg.restaurantId
-             WHERE g.id = :groupId`,
-            {
-                replacements: { groupId: req.params.id },
-                type: QueryTypes.SELECT
-            }
-        );
+        const groups = await Group.findAll({
+            include: [
+                {
+                    model: Restaurant.scope(null), // Disable default scope
+                    attributes: ['id','name'], // Only include restaurant names
+                    through: { attributes: [] }, // Exclude join table attributes
+                }
+            ]
+        });
         res.json(groups);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve groups' });
@@ -27,7 +25,13 @@ const getGroupById = async (req, res) => {
     try {
         const id = req.params.id;
         const group = await Group.findByPk(id, {
-            include: 'restaurants' // Include associated restaurants
+            include: [
+                {
+                    model: Restaurant.scope(null), // Disable default scope
+                    attributes: ['id','name'], // Only include restaurant names
+                    through: { attributes: [] }, // Exclude join table attributes
+                }
+            ]
         });
 
         if (!group) {
