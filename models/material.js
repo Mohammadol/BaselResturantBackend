@@ -16,15 +16,15 @@ const Material = sequelize.define('material', {
         allowNull: false
     },
     price1: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, // Keeping integer as you requested
         allowNull: false
     },
     price2: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, // Keeping integer
         allowNull: false
     },
     price3: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, // Keeping integer
         allowNull: false
     },
     appearanceNumber: {
@@ -32,8 +32,14 @@ const Material = sequelize.define('material', {
         allowNull: false
     },
     departmentId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER, 
+        allowNull: false,
+        references: {
+            model: 'departments', // Reference to the 'Department' table
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     },
     type: {
         type: Sequelize.STRING,
