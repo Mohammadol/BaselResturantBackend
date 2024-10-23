@@ -4,10 +4,11 @@ const Material = require('./models/material');
 const Department = require('./models/department');
 const Restaurant = require('./models/restaurant');
 const RestaurantTable = require('./models/restaurantTable');
+const Captain = require('./models/captain');
 
 // One-to-Many: Group has many Addons, and an Addon belongs to one Group
-Addon.belongsTo(Group, { foreignKey: 'groupId', onDelete: 'CASCADE' });
-Group.hasMany(Addon, { foreignKey: 'groupId' });
+Addon.belongsToMany(Group, { through: 'addon_groups', onDelete: 'CASCADE' });
+Group.belongsToMany(Addon, { through: 'addon_groups', onDelete: 'CASCADE' });
 
 // Many-to-Many: Material and Group
 Material.belongsToMany(Group, { through: 'material_groups', onDelete: 'CASCADE' });
@@ -25,11 +26,17 @@ Department.hasMany(Material, { foreignKey: 'departmentId' });
 Restaurant.hasMany(RestaurantTable, { foreignKey: 'restaurantId' });
 RestaurantTable.belongsTo(Restaurant, { foreignKey: 'restaurantId', onDelete: 'CASCADE' });
 
+// One-to-Many: Restaurant has many Captain
+Restaurant.hasMany(Captain, { foreignKey: 'restaurantId', onDelete: 'CASCADE' });
+Captain.belongsTo(Restaurant, { foreignKey: 'restaurantId', onDelete: 'CASCADE' });
+
 module.exports = {
     Addon,
     Group,
     Material,
     Department,
     Restaurant,
-    RestaurantTable
+    RestaurantTable,
+    Captain,
+
 };

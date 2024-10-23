@@ -7,6 +7,7 @@ const addonRouter = require('./routes/addonRouter');
 const groupRouter = require('./routes/groupRouter');
 const materialRouter = require('./routes/materialRouter');
 const departmentRouter = require('./routes/departmentRouter');
+const captainRoutes = require('./routes/captainRouter');
 const associations= require('./associations');
 const app = express();
 const port = 3000; // Adjust the port number as needed
@@ -22,6 +23,8 @@ app.use('/addons', addonRouter);
 app.use('/groups', groupRouter);
 app.use('/material', materialRouter);
 app.use('/department', departmentRouter);
+app.use('/api/captains', captainRoutes);
+
 
 // Sync Sequelize models and start the server
 sequelize.sync({ alter: true }) // 'alter: true' ensures the schema gets updated without dropping tables

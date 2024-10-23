@@ -122,7 +122,7 @@ const getRestaurants = async (req, res) => {
                 attributes: ['id', 'name'] // Only include the 'id' and 'name' of the associated restaurant
             }
         });
-        res.json({ status: 'success', data: restaurantTables });
+        res.json(restaurantTables);
     } catch (error) {
         console.error('Error fetching restaurant tables:', error);
         res.status(500).json({ status: 'error', message: 'Failed to fetch restaurant tables' });

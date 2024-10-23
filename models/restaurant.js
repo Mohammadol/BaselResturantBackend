@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
 
 
-const Restaurant = sequelize.define('restaurant', {
+const Restaurant = sequelize.define('restaurants', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
