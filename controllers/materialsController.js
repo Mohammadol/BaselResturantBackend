@@ -6,8 +6,12 @@ const getAllMaterials = async (req, res) => {
     try {
         const materials = await Material.findAll({
             include: [
-                { model: Group },
-                { model: Department }
+                {
+                    model: Group, as: 'groups',
+                    attributes: ['id', 'name_ar', 'name_en'],
+                    through: { attributes: [] },
+                },
+                { model: Department , attributes:['name']}
             ]
         });
         res.json(materials);
@@ -56,7 +60,7 @@ const createMaterial = async (req, res) => {
             include: {
                 model: Group,
                 as: 'groups',
-                attributes: ['id', 'name_ar','name_en'],
+                attributes: ['id', 'name_ar', 'name_en'],
                 through: { attributes: [] },
             }
         });
@@ -86,7 +90,7 @@ const updateMaterial = async (req, res) => {
         material.price3 = price3 !== undefined ? price3 : material.price3;
         material.appearanceNumber = appearanceNumber !== undefined ? appearanceNumber : material.appearanceNumber;
         material.departmentId = departmentId !== undefined ? departmentId : material.departmentId;
-        material.type = type !==undefined? type:material.type;
+        material.type = type !== undefined ? type : material.type;
 
         await material.save();
 
