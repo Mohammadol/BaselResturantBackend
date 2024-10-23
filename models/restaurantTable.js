@@ -27,13 +27,14 @@ const RestaurantTable = sequelize.define('restaurantTable', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    restaurant: {
+    restaurantId: {  
         type: Sequelize.INTEGER, 
         allowNull: false,
         references: {
-            model: 'restaurant', // Reference to the 'Department' table
+            model: 'restaurants', 
             key: 'id'
         },
+        onDelete: 'CASCADE'
     }
 });
 
