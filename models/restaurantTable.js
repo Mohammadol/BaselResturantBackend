@@ -26,6 +26,14 @@ const RestaurantTable = sequelize.define('restaurantTable', {
     carier: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    restaurant: {
+        type: Sequelize.INTEGER, 
+        allowNull: false,
+        references: {
+            model: 'restaurant', // Reference to the 'Department' table
+            key: 'id'
+        },
     }
 });
 
