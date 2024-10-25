@@ -23,7 +23,7 @@ app.use('/addons', addonRouter);
 app.use('/groups', groupRouter);
 app.use('/material', materialRouter);
 app.use('/department', departmentRouter);
-app.use('/api/captains', captainRoutes);
+app.use('/captains', captainRoutes);
 
 
 // Sync Sequelize models and start the server

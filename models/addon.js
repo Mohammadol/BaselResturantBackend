@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
-const Group = require('./group');
 
 const Addon = sequelize.define('addon', {
     id: {
@@ -30,18 +29,8 @@ const Addon = sequelize.define('addon', {
             min: 1 // Ensure appearanceNumber is at least 1
         }
     },
-    groupId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: Group,
-            key: 'id',
-        }
-    }
 });
 
-sequelize.sync()
-
-
 // Export the model
+
 module.exports = Addon;

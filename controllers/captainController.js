@@ -1,5 +1,5 @@
 const Captain = require('../models/captain');
-
+const Restaurant=require('../models/restaurant');
 // CREATE Captain
 const createCaptain = async (req, res) => {
     try {
