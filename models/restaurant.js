@@ -13,8 +13,16 @@ const Restaurant = sequelize.define('restaurants', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    address: {
+    notes: {
         type: Sequelize.STRING,
+        allowNull: false
+    },
+    isUsed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 });

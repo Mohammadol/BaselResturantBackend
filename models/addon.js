@@ -29,6 +29,10 @@ const Addon = sequelize.define('addon', {
             min: 1 // Ensure appearanceNumber is at least 1
         }
     },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    }
 });
 
 // Export the model

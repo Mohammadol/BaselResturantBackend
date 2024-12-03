@@ -9,6 +9,32 @@ const getAllRestaurants = async (req, res) => {
     }
 };
 
+const getAllDeletedRestaurants = async (req, res) => {
+    try {
+        const deletedRestaurants = await Restaurant.findAll({
+            where: {
+                isDeleted: true
+            }
+        });
+        res.json(deletedRestaurants);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to retrieve deleted restaurants' });
+    }
+};
+
+const getAllActiveRestaurants = async (req, res) => {
+    try {
+        const activeRestaurants = await Restaurant.findAll({
+            where: {
+                isDeleted: false
+            }
+        });
+        res.json(activeRestaurants);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to retrieve active restaurants' });
+    }
+};
+
 const getRestaurantById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -84,5 +110,7 @@ module.exports = {
     getRestaurantById,
     createRestaurant,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    getAllActiveRestaurants,
+    getAllDeletedRestaurants
 };

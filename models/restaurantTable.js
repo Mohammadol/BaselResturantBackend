@@ -35,6 +35,10 @@ const RestaurantTable = sequelize.define('restaurantTable', {
             key: 'id'
         },
         onDelete: 'CASCADE'
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 

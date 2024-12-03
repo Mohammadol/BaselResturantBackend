@@ -29,6 +29,10 @@ const Captain = sequelize.define('captain', {
             key: 'id'
         },
         onDelete: 'CASCADE'
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 

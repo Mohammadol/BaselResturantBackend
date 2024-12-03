@@ -33,6 +33,10 @@ const Department = sequelize.define('department', {
                 msg: 'Printer name can only contain letters, numbers, and spaces'
             }
         }
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 

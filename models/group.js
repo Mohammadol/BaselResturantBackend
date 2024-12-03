@@ -22,6 +22,10 @@ const Group = sequelize.define('group', {
     isDefault: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 

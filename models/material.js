@@ -44,6 +44,10 @@ const Material = sequelize.define('material', {
     type: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 
