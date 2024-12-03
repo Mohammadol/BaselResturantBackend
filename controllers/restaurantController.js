@@ -104,6 +104,24 @@ const deleteRestaurant = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete restaurant' });
     }
 };
+const softDeleteRestaurant = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const restaurant = await Restaurant.findByPk(id);
+
+        if (!restaurant) {
+            return res.status(404).json({ error: 'Restaurant not found' });
+        }
+
+        // Update the isDeleted flag to true
+        restaurant.isDeleted = true;
+        await restaurant.save();
+
+        res.json({ message: 'Restaurant marked as deleted' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete restaurant' });
+    }
+};
 
 module.exports = {
     getAllRestaurants,
@@ -112,5 +130,6 @@ module.exports = {
     updateRestaurant,
     deleteRestaurant,
     getAllActiveRestaurants,
-    getAllDeletedRestaurants
+    getAllDeletedRestaurants,
+    softDeleteRestaurant
 };
