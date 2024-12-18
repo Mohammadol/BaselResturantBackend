@@ -31,7 +31,8 @@ const Addon = sequelize.define('addon', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     }
 });
 

@@ -29,7 +29,7 @@ const getAllActiveRestaurants = async (req, res) => {
                 isDeleted: false
             }
         });
-        res.json(activeRestaurants);
+        res.status(200).json(activeRestaurants);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve active restaurants' });
     }

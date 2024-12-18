@@ -38,7 +38,8 @@ const RestaurantTable = sequelize.define('restaurantTable', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     }
 });
 

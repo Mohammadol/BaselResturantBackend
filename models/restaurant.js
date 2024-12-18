@@ -23,7 +23,8 @@ const Restaurant = sequelize.define('restaurants', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false,
     }
 });
 

@@ -36,7 +36,8 @@ const Department = sequelize.define('department', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     }
 });
 

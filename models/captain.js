@@ -32,7 +32,8 @@ const Captain = sequelize.define('captain', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     }
 });
 

@@ -25,8 +25,22 @@ const Group = sequelize.define('group', {
     },
     isDeleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
+    },
+}, {
+    hooks: {
+      beforeCreate: async (group, options) => {
+        if (group.isDefault) {
+          await Group.update({ isDefault: false }, { where: { isDefault: true } });
+        }
+      },
+      beforeUpdate: async (group, options) => {
+        if (group.changed('isDefault') && group.isDefault) {
+          await Group.update({ isDefault: false }, { where: { isDefault: true, id: { [Sequelize.ne]: group.id } } });
+        }
+      }
     }
-});
+  });
 
 module.exports = Group;
