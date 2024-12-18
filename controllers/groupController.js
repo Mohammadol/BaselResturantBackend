@@ -45,7 +45,7 @@ const getGroupById = async (req, res) => {
 };
 
 const createGroup = async (req, res) => {
-    const { name_ar, name_en, appearanceNumber, isDefault, restaurantIds } = req.body;
+    const { name_ar, name_en, appearanceNumber, isDefault, restaurants } = req.body;
 
     try {
         const newGroup = await Group.create({
@@ -55,7 +55,7 @@ const createGroup = async (req, res) => {
             isDefault
         });
 
-        await newGroup.setRestaurants(restaurantIds);
+        await newGroup.setRestaurants(restaurants);
 
         res.status(201).json(newGroup);
     } catch (error) {
@@ -66,7 +66,7 @@ const createGroup = async (req, res) => {
 const updateGroup = async (req, res) => {
     try {
         const id = req.params.id;
-        const { name_ar, name_en, appearanceNumber, isDefault, restaurantIds } = req.body;
+        const { name_ar, name_en, appearanceNumber, isDefault, restaurants } = req.body;
 
         const group = await Group.findByPk(id);
 
@@ -81,8 +81,8 @@ const updateGroup = async (req, res) => {
             isDefault
         });
 
-        if (restaurantIds) {
-            await group.setRestaurants(restaurantIds);
+        if (restaurants) {
+            await group.setRestaurants(restaurants);
         }
 
         res.json({ message: 'Group updated successfully' });
