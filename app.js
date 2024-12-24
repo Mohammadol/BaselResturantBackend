@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const sequelize = require('./config/database'); // Import your Sequelize configuration
 const restaurantTablesRoutes = require('./routes/restaurantTablesRouter');
 const restaurantRoutes = require('./routes/restaurantRouter');
+const orderRoutes = require('./routes/orderRouter');
 const addonRouter = require('./routes/addonRouter');
 const groupRouter = require('./routes/groupRouter');
 const materialRouter = require('./routes/materialRouter');
@@ -10,7 +11,7 @@ const departmentRouter = require('./routes/departmentRouter');
 const captainRoutes = require('./routes/captainRouter');
 const associations= require('./associations');
 const app = express();
-const port = 3000; // Adjust the port number as needed
+const syncModels  = require('./associations');
 
 // Middleware
 app.use(bodyParser.json());
@@ -24,10 +25,11 @@ app.use('/groups', groupRouter);
 app.use('/material', materialRouter);
 app.use('/department', departmentRouter);
 app.use('/captains', captainRoutes);
+app.use('/order',orderRoutes);
 
 
 // Sync Sequelize models and start the server
-sequelize.sync({ alter: true }) // 'alter: true' ensures the schema gets updated without dropping tables
+syncModels.syncModels()
   .then(() => {
     console.log('Database synced successfully.');
     app.listen(3000, () => {

@@ -16,7 +16,7 @@ const Restaurant = sequelize.define('restaurants', {
     notes: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue:"No Notes"
+        defaultValue: "No Notes",
     },
     isUsed: {
         type: Sequelize.BOOLEAN,

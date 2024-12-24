@@ -55,11 +55,11 @@ const createRestaurant = async (req, res) => {
         const { name, notes } = req.body;
 
         // Validate input data (you can add more validation as needed)
-        if (!name || !notes) {
+        if (!name || !notes || !isUsed) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const newRestaurant = await Restaurant.create({ name, address });
+        const newRestaurant = await Restaurant.create({ name, address, isUsed });
 
         res.status(201).json(newRestaurant);
     } catch (error) {
